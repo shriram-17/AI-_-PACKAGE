@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Plagarism Detection /title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="{{url_for('static',filename='styles.css')}}" rel="stylesheet" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Artifical Intelligence Package</a>
+    </nav>
+
+    <div class="container" >
+      <h1 class="my-4">Upload Two Files</h1>
+      <form id="file-upload-form" method="POST" action="{{ url_for('upload') }}" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="file1">File 1:</label>
+          <input type="file" class="form-control-file" id="file1" name="file1">
+        </div>
+        <div class="form-group">
+          <label for="file2">File 2:</label>
+          <input type="file" class="form-control-file" id="file2" name="file2">
+        </div>
+        <button type="submit" class="btn btn-primary">Upload Files</button>
+      </form>
+      <div id="error-message" class="mt-4"></div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+      // Function to handle form submission
+      function handleFormSubmit(event) {
+        event.preventDefault();
+        const file1 = document.getElementById('file1').files[0];
+        const file2 = document.getElementById('file2').files[0];
+
+        // Check that both files were uploaded
+        if (!file1 || !file2) {
+          const errorMessage = document.getElementById('error-message');
+          errorMessage.innerText = 'Error: Both files are required';
+          errorMessage.classList.add('text-danger');
+          return;
+        }
+
+        // Submit form if validation passed
+        document.getElementById('file-upload-form').submit();
+      }
+
+      // Add event listener to form submission
+      document.getElementById('file-upload-form').addEventListener('submit', handleFormSubmit);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Results</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f7f7f7;
+		}
+		h1 {
+			color: #333;
+			text-align: center;
+			margin-top: 50px;
+			margin-bottom: 30px;
+		}
+		ul {
+			list-style: none;
+			padding: 0;
+			margin: 0 auto;
+			max-width: 500px;
+		}
+		li {
+			padding: 10px;
+			border: 1px solid #ccc;
+			margin-bottom: 10px;
+			background-color: #fff;
+		}
+		li:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+        .common-words {
+            font-weight: bold;
+            color: #333;
+        }
+        .value {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+	</style>
+</head>
+<body>
+	<h1>Results:</h1>
+	<ul>
+		<li><span class="common-words">Common words:</span> {% for word in result['common_words'] %}{{ word }}, {% endfor %}</li>
+		<li><span class="common-words">Cosine similarity (TF-IDF):</span> <span class="value">{{ result['cosine_similarity_tfidf'] }}</span></li>
+		<li><span class="common-words">Fuzzy match ratio:</span> <span class="value">{{ result['fuzzy_match_ratio'] }}</span></li>
+		<li><span class="common-words">Jaccard similarity:</span> <span class="value">{{ result['jaccard_similarity'] }}</span></li>
+		<li><span class="common-words">Sequence match similarity:</span> <span class="value">{{ result['sequence_match_similarity'] }}</span></li>
+		<li><span class="common-words">Word2Vec similarity:</span> <span class="value">{{ result['word2vec_similarity'] }}</span></li>
+		<li><span class="common-words">CBOW similarity:</span> <span class="value">{{ result['cbow_similarity'] }}</span></li>
+		<li><span class="common-words">Doc2Vec similarity:</span> <span class="value">{{ result['doc2vec_similarity'] }}</span></li>
+	</ul>
+</body>
+</html>
