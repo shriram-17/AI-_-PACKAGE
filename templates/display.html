@@ -1,54 +1,87 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Results</title>
-	<style>
-		body {
-			font-family: Arial, sans-serif;
-			background-color: #f7f7f7;
-		}
-		h1 {
-			color: #333;
-			text-align: center;
-			margin-top: 50px;
-			margin-bottom: 30px;
-		}
-		ul {
-			list-style: none;
-			padding: 0;
-			margin: 0 auto;
-			max-width: 500px;
-		}
-		li {
-			padding: 10px;
-			border: 1px solid #ccc;
-			margin-bottom: 10px;
-			background-color: #fff;
-		}
-		li:nth-child(even) {
-			background-color: #f2f2f2;
-		}
-        .common-words {
-            font-weight: bold;
-            color: #333;
-        }
-        .value {
-            color: #4CAF50;
-            font-weight: bold;
-        }
-	</style>
-</head>
-<body>
-	<h1>Results:</h1>
-	<ul>
-		<li><span class="common-words">Common words:</span> {% for word in result['common_words'] %}{{ word }}, {% endfor %}</li>
-		<li><span class="common-words">Cosine similarity (TF-IDF):</span> <span class="value">{{ result['cosine_similarity_tfidf'] }}</span></li>
-		<li><span class="common-words">Fuzzy match ratio:</span> <span class="value">{{ result['fuzzy_match_ratio'] }}</span></li>
-		<li><span class="common-words">Jaccard similarity:</span> <span class="value">{{ result['jaccard_similarity'] }}</span></li>
-		<li><span class="common-words">Sequence match similarity:</span> <span class="value">{{ result['sequence_match_similarity'] }}</span></li>
-		<li><span class="common-words">Word2Vec similarity:</span> <span class="value">{{ result['word2vec_similarity'] }}</span></li>
-		<li><span class="common-words">CBOW similarity:</span> <span class="value">{{ result['cbow_similarity'] }}</span></li>
-		<li><span class="common-words">Doc2Vec similarity:</span> <span class="value">{{ result['doc2vec_similarity'] }}</span></li>
-	</ul>
-</body>
+  <head>
+    <title>Results</title>
+  </head>
+  <link href="{{url_for('static',filename='display.css')}}" rel="stylesheet" />
+  <body>
+    <h1>Results:</h1>
+    <ul>
+      <li>
+        <span class="common-words">Common words:</span> {% for word in
+        result['common_words'] %}{{ word }}, {% endfor %}
+      </li>
+      <li>
+        <span class="common-words">Cosine similarity (TF-IDF):</span>
+        <span class="value">{{ result['cosine_similarity_tfidf'] }}</span>
+      </li>
+      <li>
+        <span class="common-words">Fuzzy match ratio:</span>
+        <span class="value">{{ result['fuzzy_match_ratio'] }}</span>
+      </li>
+      <li>
+        <span class="common-words">Jaccard similarity:</span>
+        <span class="value">{{ result['jaccard_similarity'] }}</span>
+      </li>
+      <li>
+        <span class="common-words">Sequence match similarity:</span>
+        <span class="value">{{ result['sequence_match_similarity'] }}</span>
+      </li>
+      <li>
+        <span class="common-words">Word2Vec similarity:</span>
+        <span class="value">{{ result['word2vec_similarity'] }}</span>
+      </li>
+      <li>
+        <span class="common-words">CBOW similarity:</span>
+        <span class="value">{{ result['cbow_similarity'] }}</span>
+      </li>
+      <li>
+        <span class="common-words">Doc2Vec similarity:</span>
+        <span class="value">{{ result['doc2vec_similarity'] }}</span>
+      </li>
+    </ul>
+
+    <canvas id="myChart"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+      	type: 'bar',
+      	data: {
+      		labels: ['TF-IDF', 'Fuzzy match', 'Jaccard', 'Seq match', 'Word2Vec', 'CBOW', 'Doc2Vec'],
+      		datasets: [{
+      			label: 'Similarity scores',
+      			data: [{{ result['cosine_similarity_tfidf'] }}, {{ result['fuzzy_match_ratio'] }}, {{ result['jaccard_similarity'] }}, {{ result['sequence_match_similarity'] }}, {{ result['word2vec_similarity'] }}, {{ result['cbow_similarity'] }}, {{ result['doc2vec_similarity'] }}],
+      			backgroundColor: [
+      			'rgba(255, 99, 132, 0.2)',
+      			'rgba(54, 162, 235, 0.2)',
+      			'rgba(255, 206, 86, 0.2)',
+      			'rgba(75, 192, 192, 0.2)',
+      			'rgba(153, 102, 255, 0.2)',
+      			'rgba(255, 159, 64, 0.2)',
+      			'rgba(128, 128, 128, 0.2)'
+      			],
+      			borderColor: [
+      			'rgba(255, 99, 132, 1)',
+      			'rgba(54, 162, 235, 1)',
+      			'rgba(255, 206, 86, 1)',
+      			'rgba(75, 192, 192, 1)',
+      			'rgba(153, 102, 255, 1)',
+      			'rgba(255, 159, 64, 1)',
+      			'rgba(128, 128, 128, 1)'
+      			],
+      			borderWidth: 1
+      			}]
+      			},
+      			options: {
+      			scales: {
+      			y: {
+      			beginAtZero: true
+      			}
+      			}
+      			}
+      			});
+    </script>
+  </body>
 </html>

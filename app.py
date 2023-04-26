@@ -39,7 +39,6 @@ def upload():
     cos_sim = cosine_similarity(tfidf_matrix1, tfidf_matrix2)[0][0]
 
     fuzz_ratio = fuzz.token_sort_ratio(text1, text2)
-
     set1 = set(text1.split())
     set2 = set(text2.split())
     common_words = list(set1 & set2)
@@ -67,7 +66,7 @@ def upload():
 
     result = {
         'cosine_similarity_tfidf': round(float(cos_sim), 2),
-        'fuzzy_match_ratio': fuzz_ratio,
+        'fuzzy_match_ratio': fuzz_ratio/100, 
         'jaccard_similarity': round(float(jaccard_sim), 2),
         'sequence_match_similarity': round(float(seq_match_sim), 2),
         'word2vec_similarity': round(float(word2vec_sim), 2),
